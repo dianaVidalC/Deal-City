@@ -1,0 +1,30 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/lugares">Lugares</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear Lugar</li>
+    </ol>
+  </nav>
+  <div class="container">
+    <form>
+      <label>Nombre</label>
+      <input type="text" class="form-control mb-4" name="nombre" [(ngModel)]="lugar.nombre">
+      <label>Distancia</label>
+      <input type="number" class="form-control mb-4" name="distancia" [(ngModel)]="lugar.distancia">
+      <label>Cercanía</label>
+      <input type="number" class="form-control mb-4" name="cercania" [(ngModel)]="lugar.cercania">
+      <label>Descripción</label>
+      <textarea style="resize:none" class="form-control mb-4" name="descripcion" [(ngModel)]="lugar.descripcion"></textarea>
+      <label>Plan</label>
+      <input type="text" class="form-control mb-4" name="plan" [(ngModel)]="lugar.plan">
+      <h3 class="my-5">Datos de Dirección</h3>
+      <label>Calle y Número</label>
+      <input type="text" class="form-control mb-4" name="calle" [(ngModel)]="lugar.calle">
+      <label>Ciudad</label>
+      <input type="text" class="form-control mb-4" name="ciudad" [(ngModel)]="lugar.ciudad">
+      <label>País</label>
+      <input type="text" class="form-control mb-4" name="pais" [(ngModel)]="lugar.pais">
+      <hr>
+      <button class="btn btn-primary mr-3" type="submit">Enviar</button>
+      <a class="btn btn-outline-secondary" routerLink="/lugares" role="button">Cancelar</a>
+    </form>
+  </div>
