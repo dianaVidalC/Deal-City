@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { LugaresService } from '../services/lugares.service';
 
 const H = window['H'];
 
@@ -11,8 +12,19 @@ export class MapsComponent implements OnInit {
   @ViewChild('map') mapContainer: ElementRef;
 
   map: any;
-  constructor() { }
+  lugares:any;
 
+  constructor(private lugaresServices: LugaresService){
+    this.lugaresServices.traerLugares().subscribe((lugares) =>{
+      this.lugares = lugares;
+      this.lugares.forEach(lugar => {
+      console.log(lugar);
+      const marker = new H.map.Marker({lat: lugar.lat, lng: lugar.lng});
+      this.map.addObject(marker);
+    });
+
+    });
+  }
   ngOnInit() {
     this.map = this.initializeMap();
   }
@@ -33,8 +45,8 @@ export class MapsComponent implements OnInit {
       this.mapContainer.nativeElement,
       defaultLayers.normal.map,
       {
-        zoom: 10,
-        center: { lat: 52.5, lng: 13.4 }
+        zoom: 10.6,
+        center: { lat: -12, lng: -77}
       }
     );
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));

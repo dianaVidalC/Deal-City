@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 
 export interface Item {
   plan: string;
@@ -10,9 +10,14 @@ export interface Item {
   distancia: number;
   active: boolean;
   nombre: string;
-  descripcion: string
+  descripcion: string;
+  lat: number;
+  lng: number;
 }
 
+class  Geocoder {
+  Response: object
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -49,7 +54,14 @@ export class LugaresService {
     this.itemDoc = this.afs.doc<Item>(`lugares/${id}`)
     this.itemDoc.update(item);
   }
+  public borrarLugar(id) {
+    this.itemDoc = this.afs.doc<Item>(`lugares/${id}`)
+    this.itemDoc.delete();
+  }
   public obtenerGeoData (direccion) {
-    return this.http.get(`https://geocoder.api.here.com/6.2/geocode.json?searchtext=${direccion}&app_id=b7dkSpddGfBLldftS8k6&app_code=Z5fCpK9BRUSBMqkg0BNcYg`)
+    const params = new HttpParams({fromString: direccion});
+    console.log(`https://geocoder.api.here.com/6.2/geocode.json?searchtext=${params}&app_id=b7dkSpddGfBLldftS8k6&app_code=Z5fCpK9BRUSBMqkg0BNcYg`);
+
+    return this.http.get(`https://geocoder.api.here.com/6.2/geocode.json?searchtext=${params}&app_id=b7dkSpddGfBLldftS8k6&app_code=Z5fCpK9BRUSBMqkg0BNcYg`, {responseType:"json"})
   }
 }

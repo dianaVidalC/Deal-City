@@ -14,30 +14,33 @@ export class CrearComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
 
     if(this.id != 'new'){
-      this.lugar = this.lugaresService.traerLugar(this.id)
+      this.lugaresService.traerLugar(this.id)
         .subscribe((lugar) => {
           this.lugar = lugar;
+          // console.log(this.lugar);
         });
     }
   }
 
   guardarLugar() {
-      if (this.id != 'new' ) {
-        this.lugaresService.editarLugar(this.id, this.lugar)
-        alert("Negocio editado con éxito!")
-      } else {
-        const direccion = this.lugar.calle + this.lugar.ciudad + this.lugar.pais;
-        this.lugaresService.obtenerGeoData(direccion)
-          .subscribe((result:any) => {
-            debugger
-            this.lugar.lat = result.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
-            this.lugar.lng = result.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
-          })
-        this.lugaresService.agregarLugar(this.lugar);
-        alert("Negocio guardado con éxito!")
+    const direccion = this.lugar.calle +","+ this.lugar.ciudad + "," + this.lugar.pais;
+    this.lugaresService.obtenerGeoData(direccion)
+      .subscribe((result:any) => {
+        this.lugar.lat = result.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
+        this.lugar.lng = result.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
+
+        if (this.id != 'new' ) {
+          this.lugaresService.editarLugar(this.id, this.lugar)
+          alert("Negocio editado con éxito!")
+        } else {
+          this.lugaresService.agregarLugar(this.lugar);
+          alert("Negocio guardado con éxito!")
+          this.lugar = {};
+        }
       }
-      this.lugar = {};
+    )
   }
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LugaresService } from '../services/lugares.service';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-lugares',
@@ -8,7 +8,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./lugares.component.sass']
 })
 export class LugaresComponent implements OnInit {
-  faEdit = faEdit;
+  faTrashAlt = faTrashAlt;
   title = 'deal-city';
   lugares:any;
 
@@ -17,6 +17,9 @@ export class LugaresComponent implements OnInit {
     this.lugaresService.traerLugares().subscribe((elem) => {
       this.lugares = elem;
     })
+  }
+  eliminar (item) {
+    this.lugaresService.borrarLugar(item.id)
   }
   ngOnInit() {
   }

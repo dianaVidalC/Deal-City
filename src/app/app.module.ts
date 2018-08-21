@@ -27,7 +27,7 @@ import { EditarComponent } from './editar/editar.component';
 const appRoutes: Routes = [
 
   {path:"", component: LugaresComponent},
-  {path:"lugares/", component: LugaresComponent},
+  {path:"lugares", component: LugaresComponent},
   {path:"detalle/:id", component: DetalleComponent},
   {path:"contacto", component: ContactoComponent},
   {path:"crear/:id", component: CrearComponent},
