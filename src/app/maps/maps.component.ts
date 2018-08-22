@@ -18,7 +18,6 @@ export class MapsComponent implements OnInit {
     this.lugaresServices.traerLugares().subscribe((lugares) =>{
       this.lugares = lugares;
       this.lugares.forEach(lugar => {
-      console.log(lugar);
       const marker = new H.map.Marker({lat: lugar.lat, lng: lugar.lng});
       this.map.addObject(marker);
     });

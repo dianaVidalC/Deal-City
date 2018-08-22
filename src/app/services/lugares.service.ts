@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 export interface Item {
   plan: string;
@@ -14,14 +14,12 @@ export interface Item {
   lat: number;
   lng: number;
 }
-
-class  Geocoder {
-  Response: object
-}
 @Injectable({
   providedIn: 'root'
 })
 export class LugaresService {
+
+  private API_ENDPOINT = 'https://storage.googleapis.com/deal-city/';
 
   private itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
@@ -45,7 +43,18 @@ export class LugaresService {
     return this.afs.collection('lugares').doc(id).valueChanges();
   }
   public agregarLugar (item: Item) {
-    this.itemsCollection.add(item);
+    // this.itemsCollection.add(item);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<Item>(`${this.API_ENDPOINT}lugares`, item, { headers })
+            .subscribe(
+              data => {
+                  console.log("POST Request is successful ", data);
+              },
+              error => {
+                  console.log("Error", error);
+              }
+  );
   }
   public buscarLugar (id) {
     // return this.lugares.filter((lugar) => lugar.id == id) [0] || null;
