@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
 import { MapsComponent } from './maps/maps.component';
 import { ResaltarDirective } from './directives/resaltar.directive';
@@ -22,6 +24,9 @@ import { environment } from '../environments/environment';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditarComponent } from './editar/editar.component';
+
+import { LinkifystrPipe } from './pipes/linkifystr.pipe'
+
 
 
 const appRoutes: Routes = [
@@ -44,7 +49,8 @@ const appRoutes: Routes = [
     LugaresComponent,
     ContactoComponent,
     CrearComponent,
-    EditarComponent
+    EditarComponent,
+    LinkifystrPipe
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,8 @@ const appRoutes: Routes = [
     AngularFireAuthModule,
     AngularFireStorageModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule
   ],
   providers: [LugaresService],
   bootstrap: [AppComponent]

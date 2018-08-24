@@ -1,4 +1,8 @@
 <app-maps></app-maps>
+<hr>
+<div id="cuadrado" [@contenedorAnimable]='state' (@contenedorAnimable.start)="animacionInicia($event)" (@contenedorAnimable.done)="animacionTermina($event)"></div>
+
+<a class="btn btn-outline-secondary" href="javascript:void(0)" (click)="animar()">Animar</a>
 
 <div class="container mt-5">
   <div class="row">
@@ -9,9 +13,9 @@
         <ng-container *ngFor="let lugar of lugares">
           <li class="list-group-item">
             <a routerLink="/crear/{{lugar.id}}"><h3>{{ lugar.nombre }}</h3></a>
-            <small>{{ lugar.date | date: "mediumTime" | uppercase}}</small>
-            <p>{{ lugar.descripcion }}</p>
-            <!-- <a href="#"><span class="float-right" (click)="eliminar(lugar)"><fa-icon [icon]="faTrashAlt"></fa-icon></span></a> -->
+            <small>Creado: {{ lugar.date | date: "mediumTime" | uppercase}}</small>
+            <p [innerHtml]="lugar.descripcion | linkifystr"></p>
+            <!-- <a href="javascript:void(0)"><span class="float-right" (click)="eliminar(lugar)"><fa-icon [icon]="faTrashAlt"></fa-icon></span></a> -->
           </li>
         </ng-container>
       </ul>
