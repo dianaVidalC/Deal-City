@@ -19,7 +19,7 @@ export interface Item {
 })
 export class LugaresService {
 
-  private API_ENDPOINT = 'https://storage.googleapis.com/deal-city/';
+  // private API_ENDPOINT = 'https://firestore.googleapis.com/v1beta1/deal-city/';
 
   private itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
@@ -43,18 +43,18 @@ export class LugaresService {
     return this.afs.collection('lugares').doc(id).valueChanges();
   }
   public agregarLugar (item: Item) {
-    // this.itemsCollection.add(item);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.itemsCollection.add(item);
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post<Item>(`${this.API_ENDPOINT}lugares`, item, { headers })
-            .subscribe(
-              data => {
-                  console.log("POST Request is successful ", data);
-              },
-              error => {
-                  console.log("Error", error);
-              }
-  );
+    // return this.http.post<Item>(`${this.API_ENDPOINT}lugares`, item, { headers })
+    //         .subscribe(
+    //           data => {
+    //               console.log("POST Request is successful ", data);
+    //           },
+    //           error => {
+    //               console.log("Error", error.statusText);
+    //           }
+    //         );
   }
   public buscarLugar (id) {
     // return this.lugares.filter((lugar) => lugar.id == id) [0] || null;
@@ -69,7 +69,6 @@ export class LugaresService {
   }
   public obtenerGeoData (direccion) {
     const params = new HttpParams({fromString: direccion});
-    console.log(`https://geocoder.api.here.com/6.2/geocode.json?searchtext=${params}&app_id=b7dkSpddGfBLldftS8k6&app_code=Z5fCpK9BRUSBMqkg0BNcYg`);
 
     return this.http.get(`https://geocoder.api.here.com/6.2/geocode.json?searchtext=${params}&app_id=b7dkSpddGfBLldftS8k6&app_code=Z5fCpK9BRUSBMqkg0BNcYg`, {responseType:"json"})
   }

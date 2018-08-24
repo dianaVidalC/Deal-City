@@ -14,8 +14,12 @@ export class LugaresComponent implements OnInit {
 
   constructor(private lugaresService: LugaresService) {
 
-    this.lugaresService.traerLugares().subscribe((elem) => {
+    this.lugaresService.traerLugares()
+    .subscribe((elem) => {
       this.lugares = elem;
+    },error => {
+      console.log(error);
+      alert(`Estamos teniendo dificultades, disculpe las molestias. Error:${error.statusText}`)
     })
   }
   eliminar (item) {

@@ -7,8 +7,12 @@
       <a class="btn btn-primary my-3" routerLink="/crear/new">Crear Nuevo Negocio</a>
       <ul class="list-group">
         <ng-container *ngFor="let lugar of lugares">
-          <li class="list-group-item"><a routerLink="/crear/{{lugar.id}}">{{ lugar.nombre }}</a>
-            <span class="float-right"  (click)="eliminar(lugar)"><fa-icon [icon]="faTrashAlt"></fa-icon></span></li>
+          <li class="list-group-item">
+            <a routerLink="/crear/{{lugar.id}}"><h3>{{ lugar.nombre }}</h3></a>
+            <small>{{ lugar.date | date: "mediumTime" | uppercase}}</small>
+            <p>{{ lugar.descripcion }}</p>
+            <!-- <a href="#"><span class="float-right" (click)="eliminar(lugar)"><fa-icon [icon]="faTrashAlt"></fa-icon></span></a> -->
+          </li>
         </ng-container>
       </ul>
     </div>

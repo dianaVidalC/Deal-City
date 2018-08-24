@@ -33,6 +33,7 @@ export class CrearComponent implements OnInit {
           this.lugaresService.editarLugar(this.id, this.lugar)
           alert("Negocio editado con éxito!")
         } else {
+          this.lugar.date = Date.now();
           this.lugaresService.agregarLugar(this.lugar);
           alert("Negocio guardado con éxito!")
           this.lugar = {};
